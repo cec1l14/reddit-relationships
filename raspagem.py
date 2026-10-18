@@ -26,7 +26,7 @@ if cookie:
 # URL 3 (Advices - past year): "https://old.reddit.com/r/relationship_advice/top/?sort=top&t=year"
 # URL 4 (Interracial relantionships): "https://old.reddit.com/r/interracialdating/top/?sort=top&t=year"
 # URL 5 (Gay relationships): "https://old.reddit.com/r/gayrelationships/top/?sort=top&t=year"
-# URL 6
+# URL 6 (Actual Lesbians - past year): "https://old.reddit.com/r/actuallesbians/top/?sort=top&t=year" 
 
 url_atual = "https://old.reddit.com/r/gayrelationships/top/?sort=top&t=year"
 
