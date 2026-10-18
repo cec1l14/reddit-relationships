@@ -1,12 +1,10 @@
 # Relationships on Reddit
 Projeto de análise exploratória de dados da disciplina **Introdução à Ciência de Dados** (Ciência de Dados e Inteligência Artificial, UFPB).
 
-## Tarefas - Etapa 2
-
-### 1. Coleta de dados
-### 2. Explicação do conjunto de dados
-### 3. Explicação do processo de coleta de dados
-### 4. Descrição de cada coluna
+#### 1. Coleta de dados
+#### 2. Explicação do conjunto de dados
+#### 3. Explicação do processo de coleta de dados
+#### 4. Descrição de cada coluna
 | Coluna | Descrição | Exemplo |
 |---|---|---|
 | `AutorPost` | Usuário que publicou o post | `usuario_exemplo` |
@@ -16,9 +14,9 @@ Projeto de análise exploratória de dados da disciplina **Introdução à Ciên
 | `Conteúdo` | Texto do post | `Meus pais se divorciaram quando eu estava na pré-escola...` |
 | `AutorCom N` | Autor do N-ésimo comentário (N de 1 a 100) | `outro_usuario` |
 | `Comentário N` | Texto do N-ésimo comentário (N de 1 a 100) | `Pergunte à sua mãe se ela pode mudar sua genética...` |
-### 5. Link do Google Drive com os dados
- 
-## Integrantes
+#### 5. Link do Google Drive
+ [Dados do projeto](https://drive.google.com/drive/u/4/folders/1jatpj7-MGdezqWZKNTkjlBcMaB7bKh6o?hl=pt-br)
+###  Integrantes
 
 | | Nome | GitHub |
 |---|---|---|
