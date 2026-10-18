@@ -2,6 +2,14 @@
 Projeto de análise exploratória de dados da disciplina **Introdução à Ciência de Dados** (Ciência de Dados e Inteligência Artificial, UFPB).
 
 #### 1. Coleta de dados
+| Subreddit | Período | Posts | Comentários |
+|---|---|---|---|
+| r/relationships | Todos os tempos | [491] | [46947] |
+| r/relationship_advice | Todos os tempos | [487] | [48347] |
+| r/relationship_advice | Último ano | [462] | [45372] |
+| r/interracialdating | Último ano | [464] | [45509] |
+| r/gayrelationships | Último ano | [472] | [7414] |
+| r/actuallesbians | Último ano | [454] | [28944] |
 #### 2. Explicação do conjunto de dados
 #### 3. Explicação do processo de coleta de dados
 #### 4. Descrição de cada coluna
