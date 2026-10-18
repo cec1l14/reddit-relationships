@@ -13,6 +13,10 @@ Os dados por nós obtidos foram retirados de 2830 posts e 222533 comentários, o
 | r/gayrelationships | Último ano | [472] | [7414] |
 | r/actuallesbians | Último ano | [454] | [28944] |
 #### 3. Explicação do processo de coleta de dados
+Em suma, a coleta foi realizada a partir do web scraping aplicado ao 'old.reddit.com'. A justificava para tal escolha se dá devido à simplicidade com que o site foi construído, haja vista que, por não depender de JavaScript, a extração de dados tradicional se torna possível ([Bernard, 2026](https://roundproxies.com/blog/reddit/)). Assim, para tal, fizemos uso de um script ('raspagem.py'), o qual percorre a listagem "top" do período escolhido, página por página, até o limite de 40 páginas (uma vez que o Reddit restringe a listagem a aproximadamente 1000 publicações). Além disso, urge pontuar que a navegação entre as páginas é realizada a partir do botão de próxima página, configurado na interface do site. 
+
+No tocante à funcionalidade do script, vê-se que esse extrai o autor, título, flair e o endereço, para, em seguida, acessar a página do post para obter o texto e os comentários. Além disso, foram descartados os comentários do usuário 'AutoModerator' e aqueles marcados como '[deleted]' ou '[removed]'. Quanto às quebras de linhas, estas foram substituídas por '|', enquanto os valores ausentes foram preenchidos com 'Desconhecido', 'Sem Estado/Flair' e 'Post sem texto (Link ou Imagem)'. 
+
 #### 4. Descrição de cada coluna
 | Coluna | Descrição | Exemplo |
 |---|---|---|
