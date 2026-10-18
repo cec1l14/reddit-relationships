@@ -2,6 +2,8 @@
 Projeto de análise exploratória de dados da disciplina **Introdução à Ciência de Dados** (Ciência de Dados e Inteligência Artificial, UFPB).
 
 #### 1. Coleta de dados
+#### 2. Explicação do conjunto de dados
+Os dados por nós obtidos foram retirados de 2830 posts e 222533 comentários, os quais pertencem a cinco subrredits distintos: r/relationships, r/relationship_advice ('all time' e 'past year'), r/interracialdating, r/gayrelationships e r/actuallesbians. Além disso, é válido pontuar que adicionamos as extrações em csv's, os quais estão organizados em 206 colunas: 'AutorPost', 'Título', 'Estado/Flair', 'Link', 'Conteúdo', 'AutorCom1',..., 'Autorcom100', 'Comentário 1',..., 'Comentário 100'. Quanto à distribuição de cada dataset individualmente, nota-se:
 | Subreddit | Período | Posts | Comentários |
 |---|---|---|---|
 | r/relationships | Todos os tempos | [491] | [46947] |
@@ -10,7 +12,6 @@ Projeto de análise exploratória de dados da disciplina **Introdução à Ciên
 | r/interracialdating | Último ano | [464] | [45509] |
 | r/gayrelationships | Último ano | [472] | [7414] |
 | r/actuallesbians | Último ano | [454] | [28944] |
-#### 2. Explicação do conjunto de dados
 #### 3. Explicação do processo de coleta de dados
 #### 4. Descrição de cada coluna
 | Coluna | Descrição | Exemplo |
