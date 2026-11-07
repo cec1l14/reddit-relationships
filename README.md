@@ -2,7 +2,7 @@
 Projeto de análise exploratória de dados da disciplina **Introdução à Ciência de Dados** (Ciência de Dados e Inteligência Artificial, UFPB).
 
 #### Explicação do conjunto de dados
-Os dados por nós obtidos foram retirados de 2830 posts e 222533 comentários, os quais pertencem a cinco subrredits distintos: r/relationships, r/relationship_advice ('all time' e 'past year'), r/interracialdating, r/gayrelationships e r/actuallesbians. Além disso, é válido pontuar que adicionamos as extrações em csv's, os quais estão organizados em 206 colunas: 'AutorPost', 'Título', 'Estado/Flair', 'Link', 'Conteúdo', 'AutorCom1',..., 'Autorcom100', 'Comentário 1',..., 'Comentário 100'. Quanto à distribuição de cada dataset individualmente, nota-se:
+Os dados por nós obtidos foram retirados de 2830 posts e 222533 comentários, os quais pertencem a cinco subrredits distintos: r/relationships, r/relationship_advice ('all time' e 'past year'), r/interracialdating, r/gayrelationships e r/actuallesbians. Além disso, é válido pontuar que adicionamos as extrações em csv's, os quais estão organizados em 205 colunas ('AutorPost', 'Título', 'Estado/Flair', 'Link', 'Conteúdo', 'AutorCom 1',..., 'AutorCom 100', 'Comentário 1',..., 'Comentário 100'). O notebook acrescenta a coluna 'fonte' (arquivo de origem do post), por isso aparecem 206 colunas ao carregar os dados. Quanto à distribuição de cada dataset individualmente, nota-se:
 | Subreddit | Período | Posts | Comentários |
 |---|---|---|---|
 | r/relationships | Todos os tempos | [491] | [46947] |
@@ -26,6 +26,35 @@ No tocante à funcionalidade do script, vê-se que esse extrai o autor, título,
 | `Conteúdo` | Texto do post | `Meus pais se divorciaram quando eu estava na pré-escola...` |
 | `AutorCom N` | Autor do N-ésimo comentário (N de 1 a 100) | `outro_usuario` |
 | `Comentário N` | Texto do N-ésimo comentário (N de 1 a 100) | `Pergunte à sua mãe se ela pode mudar sua genética...` |
+#### Limitações dos dados
+- A coleta usa a listagem "top" de cada período, que favorece posts de sucesso. Os dados não representam a comunidade inteira.
+- Cada post guarda no máximo 100 comentários, os primeiros que aparecem na página. Posts com menos de 100 comentários válidos deixam as últimas colunas vazias.
+- O script não coleta data de publicação nem pontuação (score) dos posts e comentários.
+- Os dados contêm nomes de usuário públicos do Reddit e foram coletados apenas para fins acadêmicos. Em análises e apresentações, prefira resultados agregados.
+
+#### Estrutura do repositório
+| Item | Descrição |
+|---|---|
+| `raspagem.py` | Script de coleta (web scraping do old.reddit.com) |
+| `notebooks/relationships.ipynb` | Carregamento e verificação da qualidade dos dados |
+| `data/` | CSVs coletados (não versionados; ver link do Google Drive) |
+| `requirements.txt` | Bibliotecas necessárias |
+| `.env` | Cookie de acesso (não versionado; cada pessoa cria o seu) |
+
+#### Como reproduzir
+1. Crie e ative um ambiente virtual e instale as bibliotecas:
+```bash
+python -m venv .venv
+.venv\Scripts\activate
+python -m pip install -r requirements.txt
+```
+2. **Coleta** Crie um arquivo `.env` na raiz com o cookie da sua sessão do Reddit:
+```
+REDDIT_COOKIE=cole_aqui_o_cookie
+```
+Se as requisições derem erro, troque o cookie por um novo. Depois, edite no `raspagem.py` a URL do subrredit (`url_atual`) e o nome do arquivo de saída (`NOME_ARQUIVO_SAIDA`) e rode `python raspagem.py`. A coleta de cada subrredit leva dezenas de minutos por causa das pausas entre as requisições.
+
+
 #### Link do Google Drive
  [Dados do projeto](https://drive.google.com/drive/u/4/folders/1jatpj7-MGdezqWZKNTkjlBcMaB7bKh6o?hl=pt-br)
 ###  Integrantes
