@@ -16,7 +16,7 @@ headers = {
     "Accept-Language": "pt-BR,pt;q=0.8,en-US;q=0.5,en;q=0.3",
 }
 if cookie:
-    headers["Cookie"] = cookie # em caso de erro, altere o cookie.
+    headers["Cookie"] = cookie 
 
 
 # Subrredits usados:
