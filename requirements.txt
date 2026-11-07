@@ -1,0 +1,12 @@
+# Coleta (raspagem.py)
+requests
+beautifulsoup4
+python-dotenv
+
+# Análise (notebooks)
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn
+ipykernel
