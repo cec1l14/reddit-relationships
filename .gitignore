@@ -5,5 +5,5 @@ __pycache__/
 data/*
 !data/
 *.csv
-
+*.env
 notebooks/.ipynb_checkpoints
