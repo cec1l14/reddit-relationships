@@ -27,28 +27,50 @@ No tocante à funcionalidade do script, vê-se que esse extrai o autor, título,
 | `AutorCom N` | Autor do N-ésimo comentário (N de 1 a 100) | `outro_usuario` |
 | `Comentário N` | Texto do N-ésimo comentário (N de 1 a 100) | `Pergunte à sua mãe se ela pode mudar sua genética...` |
 #### Limitações dos dados
-- A coleta usa a listagem "top" de cada período, que favorece posts de sucesso. Os dados não representam a comunidade inteira.
-- Cada post guarda no máximo 100 comentários, os primeiros que aparecem na página. Posts com menos de 100 comentários válidos deixam as últimas colunas vazias.
+- A coleta usa a listagem "top" de cada período, que favorece posts de sucesso. Os dados não representam a comunidade inteira;
+- Cada post guarda no máximo 100 comentários, os primeiros que aparecem na página. Posts com menos de 100 comentários válidos deixam as últimas colunas vazias;
 - O script não coleta data de publicação nem pontuação (score) dos posts e comentários.
-- Os dados contêm nomes de usuário públicos do Reddit e foram coletados apenas para fins acadêmicos. Em análises e apresentações, prefira resultados agregados.
 
 #### Estrutura do repositório
+```
+reddit-relationships/
+├── data/                                      
+│   ├── relationships_top_alltime.csv
+│   ├── relationship_advice.csv
+│   ├── relationship_advice_pastyear.csv
+│   ├── interracial_relationships_pastyear.csv
+│   ├── gayrelationship_pastyear.csv
+│   └── actuallesbians_pastyear.csv
+├── notebooks/
+│   ├── relationships.ipynb                    
+│   ├── limpeza.ipynb                          
+│   └── analise.ipynb                          
+├── .env                                       
+├── .gitignore
+├── LICENSE
+├── raspagem.py                               
+├── requirements.txt                           
+└── README.md
+```
+
 | Item | Descrição |
 |---|---|
 | `raspagem.py` | Script de coleta (web scraping do old.reddit.com) |
 | `notebooks/relationships.ipynb` | Carregamento e verificação da qualidade dos dados |
+| `notebooks/limpeza.ipynb` | Limpeza dos dados (em construção) |
+| `notebooks/analise.ipynb` | Análise dos dados (em construção) |
 | `data/` | CSVs coletados (não versionados; ver link do Google Drive) |
 | `requirements.txt` | Bibliotecas necessárias |
 | `.env` | Cookie de acesso (não versionado; cada pessoa cria o seu) |
 
 #### Como reproduzir
-1. Crie e ative um ambiente virtual e instale as bibliotecas:
+1. Crie e ative um ambiente virtual e instale as [bibliotecas](requirements.txt):
 ```bash
 python -m venv .venv
 .venv\Scripts\activate
 python -m pip install -r requirements.txt
 ```
-2. **Coleta** Crie um arquivo `.env` na raiz com o cookie da sua sessão do Reddit:
+2. Crie um arquivo `.env` na raiz com o cookie da sua sessão do Reddit:
 ```
 REDDIT_COOKIE=cole_aqui_o_cookie
 ```
@@ -57,6 +79,12 @@ Se as requisições derem erro, troque o cookie por um novo. Depois, edite no `r
 
 #### Link do Google Drive
  [Dados do projeto](https://drive.google.com/drive/u/4/folders/1jatpj7-MGdezqWZKNTkjlBcMaB7bKh6o?hl=pt-br)
+
+### Aspectos éticos e legais
+
+Os dados foram coletados de posts e comentários públicos do Reddit, apenas para fins acadêmicos. Eles incluem nomes de usuário e podem tratar de temas sensíveis, como orientação sexual e origem étnico-racial ([Lei Geral de Proteção de Dados, Lei 13.709/2018](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm)). Por isso, os resultados são apresentados de forma agregada, sem expor usuários, e os CSVs não são redistribuídos fora do contexto da disciplina. A coleta foi feita com pausas entre as requisições, e o uso dos dados respeita diretamente os Termos de Uso do Reddit.
+
+
 ###  Integrantes
 
 | | Nome | GitHub |
