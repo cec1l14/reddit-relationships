@@ -7,8 +7,8 @@ import time
 import csv
 
 load_dotenv() 
-
 cookie = os.environ.get("REDDIT_COOKIE", "")
+print("Cookie carregado:", bool(cookie), "| tamanho:", len(cookie))
 
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 MeuScraperReddit/1.0",
@@ -18,30 +18,29 @@ headers = {
 if cookie:
     headers["Cookie"] = cookie 
 
+# Subrredits usados e nomes dos csvs:
 
-# Subrredits usados:
+# URL 1 (Top Histórico de Sempre): "https://old.reddit.com/r/relationships/top/?sort=top&t=all" --> "relationships_alltime.csv"
+# URL 2 (Advices): "https://old.reddit.com/r/relationship_advice/top/?sort=top&t=all" --> "relationshipadvice_alltime.csv"
+# URL 3 (Advices - past year): "https://old.reddit.com/r/relationship_advice/top/?sort=top&t=year" --> "relationshipadvice_pastyear.csv"
+# URL 4 (Interracial relantionships): "https://old.reddit.com/r/interracialdating/top/?sort=top&t=year" --> "interracialdating_pastyear.csv"
+# URL 5 (Gay relationships): "https://old.reddit.com/r/gayrelationships/top/?sort=top&t=year" -->  "gayrelationship_pastyear.csv"
+# URL 6 (Actual Lesbians - past year): "https://old.reddit.com/r/actuallesbians/top/?sort=top&t=year"  --> "actuallesbians_pastyear.csv"
 
-# URL 1 (Top Histórico de Sempre): "https://old.reddit.com/r/relationships/top/?sort=top&t=all"
-# URL 2 (Advices): "https://old.reddit.com/r/relationship_advice/top/?sort=top&t=all"
-# URL 3 (Advices - past year): "https://old.reddit.com/r/relationship_advice/top/?sort=top&t=year"
-# URL 4 (Interracial relantionships): "https://old.reddit.com/r/interracialdating/top/?sort=top&t=year"
-# URL 5 (Gay relationships): "https://old.reddit.com/r/gayrelationships/top/?sort=top&t=year"
-# URL 6 (Actual Lesbians - past year): "https://old.reddit.com/r/actuallesbians/top/?sort=top&t=year" 
 
-url_atual = "https://old.reddit.com/r/gayrelationships/top/?sort=top&t=year"
-
-# Nome do arquivo customizado para diferenciar da raspagem anterior
-NOME_ARQUIVO_SAIDA = "gayrelationship_pastyear.csv"
-
-paginas_para_raspar = 40 # aqui tem o maximo de 40, visto que o reddit só deixar fazer o scraping de 1000 posts por vez.
+paginas_para_raspar = 1 # aqui tem o maximo de 40, visto que o reddit só deixar fazer o scraping de 1000 posts por vez.
 QTD_COMENTARIOS = 100
+
+os.makedirs("data", exist_ok=True)
+NOME_ARQUIVO_SAIDA = os.path.join("data", "relationships_alltime.csv")
+url_atual = "https://old.reddit.com/r/relationships/top/?sort=top&t=all"
 
 total_posts_processados = 0
 total_comentarios_validos = 0
 
-cabecalho_csv = ['AutorPost', 'Título', 'Estado/Flair', 'Link', 'Conteúdo']
+cabecalho_csv = ['Título', 'Estado/Flair', 'Link', 'Conteúdo']
 for i in range(1, QTD_COMENTARIOS + 1):
-    cabecalho_csv.append(f'AutorCom {i}')
+    cabecalho_csv.append(f'LinkCom {i}')
     cabecalho_csv.append(f'Comentário {i}')
 
 with open(NOME_ARQUIVO_SAIDA, 'w', newline='', encoding='utf-8') as arquivo_csv:
@@ -68,8 +67,6 @@ with open(NOME_ARQUIVO_SAIDA, 'w', newline='', encoding='utf-8') as arquivo_csv:
                     if not link_comentarios:
                         continue
                     link = "https://old.reddit.com" + link_comentarios
-                        
-                    autor_post = post.find('a', class_='author').text if post.find('a', class_='author') else "Desconhecido"
                     
                     flair_elemento = post.find('span', class_='flair')
                     estado_flair = flair_elemento.text.strip() if flair_elemento else "Sem Estado/Flair"
@@ -79,7 +76,7 @@ with open(NOME_ARQUIVO_SAIDA, 'w', newline='', encoding='utf-8') as arquivo_csv:
                     resp_post = requests.get(link, headers=headers)
                     conteudo = "Post sem texto (Link ou Imagem)"
                     
-                    autores_comentarios = [""] * QTD_COMENTARIOS
+                    links_comentarios = [""] * QTD_COMENTARIOS
                     textos_comentarios = [""] * QTD_COMENTARIOS 
                     
                     if resp_post.status_code == 200:
@@ -87,8 +84,7 @@ with open(NOME_ARQUIVO_SAIDA, 'w', newline='', encoding='utf-8') as arquivo_csv:
                         
                         corpo_post = sopa_post.find('div', class_='expando')
                         if corpo_post and corpo_post.find('div', class_='md'):
-                            conteudo_bruto = corpo_post.find('div', class_='md').text.strip()
-                            conteudo = conteudo_bruto.replace('\n', ' | ')
+                            conteudo = corpo_post.find('div', class_='md').text.strip()
                         
                         area_comentarios = sopa_post.find('div', class_='commentarea')
                         
@@ -108,26 +104,30 @@ with open(NOME_ARQUIVO_SAIDA, 'w', newline='', encoding='utf-8') as arquivo_csv:
                                     
                                 texto_com = com_bloco.find('div', class_='md')
                                 
-                                if texto_com and texto_com.text.strip():
-                                    texto_limpo = texto_com.text.strip().replace('\n', ' | ')
+                                if texto_com:
+                                    texto_limpo = texto_com.text.strip()
                                     
-                                    if texto_limpo not in ["[deleted]", "[removed]"]:
-                                        autores_comentarios[idx_salvo] = nome_autor_com
+                                    if texto_limpo not in ["","[deleted]", "[removed]"]:
+                                        permalink_com = com_bloco.get('data-permalink')
+                                        link_com = "https://old.reddit.com" + permalink_com if permalink_com else ""
+
+                                        links_comentarios[idx_salvo] = link_com
                                         textos_comentarios[idx_salvo] = texto_limpo
                                         idx_salvo += 1
                                         total_comentarios_validos += 1
                     
                     pares_comentarios = []
-                    for a, c in zip(autores_comentarios, textos_comentarios):
-                        pares_comentarios.extend([a, c])
+                    for l, c in zip(links_comentarios, textos_comentarios):
+                        pares_comentarios.extend([l, c])
                     
-                    linha_dados = [autor_post, titulo, estado_flair, link, conteudo] + pares_comentarios
+                    linha_dados = [titulo, estado_flair, link, conteudo] + pares_comentarios
                     escritor.writerow(linha_dados)
                     
                     total_posts_processados += 1
                     time.sleep(5) 
                     
                 except Exception as e:
+                    print(f"Erro: {e}")
                     continue
                     
             botao_proxima = sopa.find('span', class_='next-button')
